@@ -11,7 +11,6 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.Sphere;
-import javafx.scene.transform.Rotate;
 /**
  * Created by Robin on 08.12.2015.
  */
@@ -68,6 +67,9 @@ public class Simple3DStructure {
         cameraXform.rx.setAngle(40);
     }
 
+    /**
+     * https://docs.oracle.com/javafx/8/3d_graphics/sampleapp.htm
+     */
     private void buildAxes() {
         final PhongMaterial redMaterial = new PhongMaterial();
         redMaterial.setDiffuseColor(Color.DARKRED);
@@ -94,12 +96,10 @@ public class Simple3DStructure {
     }
 
 
+    /**
+     * simple Object creation, put together into a group
+     */
     private void buildObjects(){
-        Xform objectForm = new Xform();
-        Xform sphereForm = new Xform();
-        Xform cubeForm = new Xform();
-        Xform cylinderForm = new Xform();
-
 
         final PhongMaterial blueMaterial = new PhongMaterial();
         blueMaterial.setDiffuseColor(Color.DARKBLUE);
@@ -109,9 +109,9 @@ public class Simple3DStructure {
         redMaterial.setDiffuseColor(Color.DARKRED);
         redMaterial.setSpecularColor(Color.RED);
 
-        final PhongMaterial cyanMaterial = new PhongMaterial();
-        cyanMaterial.setDiffuseColor(Color.DARKCYAN);
-        cyanMaterial.setSpecularColor(Color.CYAN);
+        final PhongMaterial goldMaterial = new PhongMaterial();
+        goldMaterial.setDiffuseColor(Color.DARKGOLDENROD);
+        goldMaterial.setSpecularColor(Color.GOLDENROD);
 
         Box cube = new Box();
         cube.setDepth(60);
@@ -121,23 +121,30 @@ public class Simple3DStructure {
         cube.setTranslateX(50.0);
         cube.setTranslateZ(-40.0);
 
+        Xform christmasBall = new Xform();
+
         Sphere sphere= new Sphere();
         sphere.setRadius(55);
         sphere.setMaterial(redMaterial);
-        sphere.setTranslateX(-50.0);
-        sphere.setTranslateZ(60.0);
+        sphere.setTranslateX(0.0);
 
-        Cylinder cylinder = new Cylinder();
-        cylinder.setHeight(90);
-        cylinder.setRadius(20);
-        cylinder.setMaterial(cyanMaterial);
-        cylinder.setTranslateX(0.0);
-        cylinder.setRotationAxis(Rotate.Z_AXIS);
-        cylinder.setRotate(45.0);
-        cylinder.setRotationAxis(Rotate.X_AXIS);
-        cylinder.setRotate(-45.0);
+        Cylinder cylinder1 = new Cylinder();
+        cylinder1.setHeight(10);
+        cylinder1.setRadius(15);
+        cylinder1.setMaterial(goldMaterial);
+        cylinder1.setTranslateY(55);
 
-        objectGroup.getChildren().addAll(cube, cylinder, sphere);
+        Cylinder cylinder2 = new Cylinder();
+        cylinder2.setHeight(30);
+        cylinder2.setRadius(3);
+        cylinder2.setMaterial(goldMaterial);
+        cylinder2.setTranslateY(55);
+
+        christmasBall.getChildren().addAll(cylinder1, cylinder2, sphere);
+        christmasBall.setTranslateX(70);
+        christmasBall.setTranslateZ(70);
+
+        objectGroup.getChildren().addAll(christmasBall, createChristmasTree(-50,-20,-50,2), createChristmasTree(60,5,-40,1.3));
         world.getChildren().add(objectGroup);
     }
 
@@ -204,5 +211,50 @@ public class Simple3DStructure {
 
     public PerspectiveCamera getCamera() {
         return camera;
+    }
+
+    public Xform createChristmasTree(double x, double y, double z, double scale){
+
+        final PhongMaterial treeMateiral = new PhongMaterial();
+        treeMateiral.setDiffuseColor(Color.DARKGREEN);
+        treeMateiral.setSpecularColor(Color.GREEN);
+
+        final PhongMaterial tribeMaterial = new PhongMaterial();
+        tribeMaterial.setDiffuseColor(Color.BROWN);
+        tribeMaterial.setSpecularColor(Color.ROSYBROWN);
+
+        Xform tree = new Xform();
+
+        Double treeHeight = 100.0;
+
+        Cylinder treePart1 = new Cylinder();
+        treePart1.setHeight(treeHeight);
+        treePart1.setRadius(5);
+        treePart1.setMaterial(treeMateiral);
+        treePart1.setTranslateY(treeHeight/2+10);
+
+        Cylinder treePart2 = new Cylinder();
+        treePart2.setHeight(treeHeight-30);
+        treePart2.setRadius(10);
+        treePart2.setMaterial(treeMateiral);
+        treePart2.setTranslateY((treeHeight-30)/2 +10 );
+
+        Cylinder treePart3 = new Cylinder();
+        treePart3.setHeight(treeHeight-60);
+        treePart3.setRadius(15);
+        treePart3.setMaterial(treeMateiral);
+        treePart3.setTranslateY((treeHeight-60)/2 +10);
+
+        Cylinder stem = new Cylinder();
+        stem.setHeight(treeHeight);
+        stem.setRadius(4);
+        stem.setMaterial(tribeMaterial);
+        stem.setTranslateY(treeHeight/2);
+
+        tree.getChildren().addAll(treePart1, treePart2, treePart3, stem);
+        tree.setTranslate(x,y,z);
+        tree.setScale(scale, scale, scale);
+
+        return tree;
     }
 }

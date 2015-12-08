@@ -2,6 +2,7 @@
 // Xform.java is a class that extends the Group class. It is used in the 
 // MoleculeSampleApp application that is built using the Getting Started with JavaFX
 // 3D Graphics tutorial. The method allows you to add your own transforms and rotation.
+// Copyright © 2013 Oracle
 // 
 
 package Simple3D;

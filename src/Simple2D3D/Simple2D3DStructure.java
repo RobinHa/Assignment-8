@@ -2,10 +2,12 @@ package Simple2D3D;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -14,26 +16,31 @@ import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Window;
 
+import java.util.*;
+
 /**
  * Created by Robin on 08.12.2015.
  */
 public class Simple2D3DStructure {
 
     private final Group root = new Group();
-    private final SubScene bottomLayer = new SubScene(root, 500, 500, true, SceneAntialiasing.DISABLED);
-
+    private final StackPane stackPane = new StackPane();
     private final PerspectiveCamera camera = new PerspectiveCamera(true);
+
     private final Xform world = new Xform();
     private final Xform cameraXform = new Xform();
     private final Xform cameraXform2 = new Xform();
     private final Xform cameraXform3 = new Xform();
     private final double cameraDistance = 450;
 
+    private final SubScene bottomLayer = new SubScene(stackPane, 500, 500, true, SceneAntialiasing.DISABLED);
     private final Group groupAxis = new Group();
-    private final Group objectGroup = new Group()
-            ;
+    private final Group objectGroup = new Group();
+    private final ArrayList<Node> objectList = new ArrayList<>();
+
     private final Pane topLayer = new Pane();
     private final Group rectangleGroup = new Group();
+    private final ArrayList<Node> rectangleList = new ArrayList<>();
 
     private double mousePosX;
     private double mousePosY;
@@ -50,17 +57,18 @@ public class Simple2D3DStructure {
         buildCamera();
         buildAxes();
         buildObjects();
+        buildTopLayer();
     }
 
     private void buildRoot() {
-        root.getChildren().add(world);
+        stackPane.getChildren().add(world);
     }
 
     /**
      * creates the camera for the scene
      */
     private void buildCamera() {
-        root.getChildren().add(cameraXform);
+        stackPane.getChildren().add(cameraXform);
         cameraXform.getChildren().add(cameraXform2);
         cameraXform2.getChildren().add(cameraXform3);
         cameraXform3.getChildren().add(camera);
@@ -109,8 +117,8 @@ public class Simple2D3DStructure {
         redMaterial.setSpecularColor(Color.RED);
 
         final PhongMaterial cyanMaterial = new PhongMaterial();
-        cyanMaterial.setDiffuseColor(Color.DARKCYAN);
-        cyanMaterial.setSpecularColor(Color.CYAN);
+        cyanMaterial.setDiffuseColor(Color.DARKGOLDENROD);
+        cyanMaterial.setSpecularColor(Color.GOLDENROD);
 
         Box cube = new Box();
         cube.setDepth(60);
@@ -138,8 +146,33 @@ public class Simple2D3DStructure {
 
         Button button3D = new Button("sample text");
 
-        objectGroup.getChildren().addAll(cube, cylinder, sphere);
+        // Add the shapes in the List, the group and add the group to the camera
+        objectGroup.getChildren().addAll(cube, cylinder, sphere, button3D);
+        objectList.add(objectGroup);
         world.getChildren().add(objectGroup);
+    }
+
+    private void buildTopLayer(){
+        topLayer.setPickOnBounds(false);
+        drawRectangleToTopLayer(objectList);
+    }
+
+    private void drawRectangleToTopLayer(ArrayList<Node> list){
+        rectangleList.clear();
+        if(list != null) {
+            list.forEach(n -> rectangleList.add(getBoundingBox2D(n)));
+
+            rectangleGroup.getChildren().clear();
+            rectangleGroup.getChildren().addAll(rectangleList);
+            topLayer.getChildren().clear();
+            topLayer.getChildren().add(rectangleGroup);
+
+            stackPane.getChildren().add(topLayer);
+            stackPane.setAlignment(bottomLayer, Pos.BASELINE_CENTER);
+            stackPane.setAlignment(topLayer, Pos.BASELINE_CENTER);
+        }else{
+            System.err.println("there is no object found");
+        }
     }
 
     private void handleMouse(Scene scene, final Node root) {
@@ -173,6 +206,7 @@ public class Simple2D3DStructure {
                 }
                 if (me.isPrimaryButtonDown() || me.isSecondaryButtonDown()) {
                     if (me.isShiftDown()) {
+                        modifier = 20.0;
                         double z = camera.getTranslateZ();
                         double newZ = z + mouseDeltaX * modifierFactor * modifier;
                         camera.setTranslateZ(newZ);
@@ -190,9 +224,7 @@ public class Simple2D3DStructure {
         scene.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
-                for (Node n : rectangleGroup){
-                    
-                }
+               drawRectangleToTopLayer(objectList);
             }
         });
     }
@@ -203,7 +235,7 @@ public class Simple2D3DStructure {
      * @return
      */
     public Scene buildScene() {
-        Scene scene = new Scene(root, 600, 600, true);
+        Scene scene = new Scene(stackPane, 600, 600, true);
         scene.setFill(Color.GRAY);
         scene.setCamera(camera);
         handleMouse(scene, world);
