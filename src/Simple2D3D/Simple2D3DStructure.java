@@ -160,14 +160,14 @@ public class Simple2D3DStructure {
     private void drawRectangleToTopLayer(ArrayList<Node> list){
         rectangleList.clear();
         if(list != null) {
-            list.forEach(n -> rectangleList.add(getBoundingBox2D(n)));
+            //list.forEach(n -> rectangleList.add(getBoundingBox2D(n)));
 
             rectangleGroup.getChildren().clear();
             rectangleGroup.getChildren().addAll(rectangleList);
             topLayer.getChildren().clear();
             topLayer.getChildren().add(rectangleGroup);
-
-            stackPane.getChildren().add(topLayer);
+            
+            stackPane.getChildren().addAll(topLayer);
             stackPane.setAlignment(bottomLayer, Pos.BASELINE_CENTER);
             stackPane.setAlignment(topLayer, Pos.BASELINE_CENTER);
         }else{
