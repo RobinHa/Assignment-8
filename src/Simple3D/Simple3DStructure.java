@@ -101,50 +101,12 @@ public class Simple3DStructure {
      */
     private void buildObjects(){
 
-        final PhongMaterial blueMaterial = new PhongMaterial();
-        blueMaterial.setDiffuseColor(Color.DARKBLUE);
-        blueMaterial.setSpecularColor(Color.BLUE);
+        Xform tree1 = createChristmasTree(-50, -20, -50, 2);
+        Xform tree2 = createChristmasTree(60, 5, -40, 1.3);
+        Xform christmasBall1 = createChristmasBall(60,60,10,0.3);
+        Xform christmasBall2 = createChristmasBall(-50,50,50,1.0);
 
-        final PhongMaterial redMaterial = new PhongMaterial();
-        redMaterial.setDiffuseColor(Color.DARKRED);
-        redMaterial.setSpecularColor(Color.RED);
-
-        final PhongMaterial goldMaterial = new PhongMaterial();
-        goldMaterial.setDiffuseColor(Color.DARKGOLDENROD);
-        goldMaterial.setSpecularColor(Color.GOLDENROD);
-
-        Box cube = new Box();
-        cube.setDepth(60);
-        cube.setHeight(60);
-        cube.setWidth(60);
-        cube.setMaterial(blueMaterial);
-        cube.setTranslateX(50.0);
-        cube.setTranslateZ(-40.0);
-
-        Xform christmasBall = new Xform();
-
-        Sphere sphere= new Sphere();
-        sphere.setRadius(55);
-        sphere.setMaterial(redMaterial);
-        sphere.setTranslateX(0.0);
-
-        Cylinder cylinder1 = new Cylinder();
-        cylinder1.setHeight(10);
-        cylinder1.setRadius(15);
-        cylinder1.setMaterial(goldMaterial);
-        cylinder1.setTranslateY(55);
-
-        Cylinder cylinder2 = new Cylinder();
-        cylinder2.setHeight(30);
-        cylinder2.setRadius(3);
-        cylinder2.setMaterial(goldMaterial);
-        cylinder2.setTranslateY(55);
-
-        christmasBall.getChildren().addAll(cylinder1, cylinder2, sphere);
-        christmasBall.setTranslateX(70);
-        christmasBall.setTranslateZ(70);
-
-        objectGroup.getChildren().addAll(christmasBall, createChristmasTree(-50,-20,-50,2), createChristmasTree(60,5,-40,1.3));
+        objectGroup.getChildren().addAll(christmasBall1, christmasBall2, tree1, tree2);
         world.getChildren().add(objectGroup);
     }
 
@@ -205,19 +167,19 @@ public class Simple3DStructure {
         return scene;
     }
 
-    public Group getRoot() {
-        return root;
-    }
-
-    public PerspectiveCamera getCamera() {
-        return camera;
-    }
-
+    /**
+     * creates a tree Xform
+     * @param x coordinate
+     * @param y coordinate
+     * @param z coordinate
+     * @param scale scale
+     * @return
+     */
     public Xform createChristmasTree(double x, double y, double z, double scale){
 
-        final PhongMaterial treeMateiral = new PhongMaterial();
-        treeMateiral.setDiffuseColor(Color.DARKGREEN);
-        treeMateiral.setSpecularColor(Color.GREEN);
+        final PhongMaterial treeMaterial = new PhongMaterial();
+        treeMaterial.setDiffuseColor(Color.DARKGREEN);
+        treeMaterial.setSpecularColor(Color.GREEN);
 
         final PhongMaterial tribeMaterial = new PhongMaterial();
         tribeMaterial.setDiffuseColor(Color.BROWN);
@@ -230,19 +192,19 @@ public class Simple3DStructure {
         Cylinder treePart1 = new Cylinder();
         treePart1.setHeight(treeHeight);
         treePart1.setRadius(5);
-        treePart1.setMaterial(treeMateiral);
+        treePart1.setMaterial(treeMaterial);
         treePart1.setTranslateY(treeHeight/2+10);
 
         Cylinder treePart2 = new Cylinder();
         treePart2.setHeight(treeHeight-30);
         treePart2.setRadius(10);
-        treePart2.setMaterial(treeMateiral);
+        treePart2.setMaterial(treeMaterial);
         treePart2.setTranslateY((treeHeight-30)/2 +10 );
 
         Cylinder treePart3 = new Cylinder();
         treePart3.setHeight(treeHeight-60);
         treePart3.setRadius(15);
-        treePart3.setMaterial(treeMateiral);
+        treePart3.setMaterial(treeMaterial);
         treePart3.setTranslateY((treeHeight-60)/2 +10);
 
         Cylinder stem = new Cylinder();
@@ -253,8 +215,58 @@ public class Simple3DStructure {
 
         tree.getChildren().addAll(treePart1, treePart2, treePart3, stem);
         tree.setTranslate(x,y,z);
-        tree.setScale(scale, scale, scale);
+        tree.setScale(scale, scale/2, scale);
 
         return tree;
     }
+
+    public Xform createChristmasBall(double x, double y, double z, double scale){
+
+        final PhongMaterial blueMaterial = new PhongMaterial();
+        blueMaterial.setDiffuseColor(Color.DARKBLUE);
+        blueMaterial.setSpecularColor(Color.BLUE);
+
+        final PhongMaterial redMaterial = new PhongMaterial();
+        redMaterial.setDiffuseColor(Color.DARKRED);
+        redMaterial.setSpecularColor(Color.RED);
+
+        final PhongMaterial goldMaterial = new PhongMaterial();
+        goldMaterial.setDiffuseColor(Color.DARKGOLDENROD);
+        goldMaterial.setSpecularColor(Color.GOLDENROD);
+
+        Box cube = new Box();
+        cube.setDepth(60);
+        cube.setHeight(60);
+        cube.setWidth(60);
+        cube.setMaterial(blueMaterial);
+        cube.setTranslateX(50.0);
+        cube.setTranslateZ(-40.0);
+
+        Xform christmasBall = new Xform();
+
+        Sphere sphere= new Sphere();
+        sphere.setRadius(55);
+        sphere.setMaterial(redMaterial);
+        sphere.setTranslateX(0.0);
+
+        Cylinder cylinder1 = new Cylinder();
+        cylinder1.setHeight(10);
+        cylinder1.setRadius(15);
+        cylinder1.setMaterial(goldMaterial);
+        cylinder1.setTranslateY(55);
+
+        Cylinder cylinder2 = new Cylinder();
+        cylinder2.setHeight(30);
+        cylinder2.setRadius(3);
+        cylinder2.setMaterial(goldMaterial);
+        cylinder2.setTranslateY(55);
+
+        christmasBall.getChildren().addAll(cylinder1, cylinder2, sphere);
+        christmasBall.setTranslate(x, y, z);
+        christmasBall.setScale(scale,scale,scale);
+
+        return christmasBall;
+
+    }
+
 }

@@ -76,16 +76,12 @@
       <file leaf-file-name="Simple3DStructure.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Simple3D/Simple3DStructure.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35031846">
-              <caret line="143" column="40" selection-start-line="143" selection-start-column="40" selection-end-line="143" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.20594479">
+              <caret line="217" column="36" selection-start-line="217" selection-start-column="36" selection-end-line="217" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1315#1316#0" expanded="true" />
                 <element signature="e#1360#1361#0" expanded="true" />
-                <element signature="e#7000#7001#0" expanded="true" />
-                <element signature="e#7027#7028#0" expanded="true" />
-                <element signature="e#7071#7072#0" expanded="true" />
-                <element signature="e#7100#7101#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -623,6 +619,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
@@ -701,7 +703,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13099000" />
+    <option name="totallyTimeSpent" value="14077000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -887,16 +889,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Simple3D/Simple3DStructure.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35031846">
-          <caret line="143" column="40" selection-start-line="143" selection-start-column="40" selection-end-line="143" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.20594479">
+          <caret line="217" column="36" selection-start-line="217" selection-start-column="36" selection-end-line="217" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1315#1316#0" expanded="true" />
             <element signature="e#1360#1361#0" expanded="true" />
-            <element signature="e#7000#7001#0" expanded="true" />
-            <element signature="e#7027#7028#0" expanded="true" />
-            <element signature="e#7071#7072#0" expanded="true" />
-            <element signature="e#7100#7101#0" expanded="true" />
           </folding>
         </state>
       </provider>
