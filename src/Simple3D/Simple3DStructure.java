@@ -63,8 +63,8 @@ public class Simple3DStructure {
         camera.setNearClip(0.1);
         camera.setFarClip(10000.0);
         camera.setTranslateZ(-cameraDistance*2);
-        cameraXform.ry.setAngle(270.0);
-        cameraXform.rx.setAngle(40);
+        cameraXform.ry.setAngle(100.0);
+        cameraXform.rx.setAngle(30.0);
     }
 
     /**
@@ -83,9 +83,9 @@ public class Simple3DStructure {
         blueMaterial.setDiffuseColor(Color.DARKBLUE);
         blueMaterial.setSpecularColor(Color.BLUE);
 
-        final Box xAxis = new Box(240.0, 1, 1);
-        final Box yAxis = new Box(1, 240.0, 1);
-        final Box zAxis = new Box(1, 1, 240.0);
+        final Box xAxis = new Box(140.0, 1, 1);
+        final Box yAxis = new Box(1, 140.0, 1);
+        final Box zAxis = new Box(1, 1, 140.0);
 
         xAxis.setMaterial(redMaterial);
         yAxis.setMaterial(greenMaterial);
@@ -103,8 +103,11 @@ public class Simple3DStructure {
 
         Xform tree1 = createChristmasTree(-50, -20, -50, 2);
         Xform tree2 = createChristmasTree(60, 5, -40, 1.3);
-        Xform christmasBall1 = createChristmasBall(60,60,10,0.3);
-        Xform christmasBall2 = createChristmasBall(-50,50,50,1.0);
+        Xform christmasBall1 = createChristmasBall(-60,10,40,0.3);
+        Xform christmasBall2 = createChristmasBall(70,35,70,1.0);
+        christmasBall1.setRotate(50,10,-40);
+        christmasBall2.setRotate(30,30,30);
+
 
         objectGroup.getChildren().addAll(christmasBall1, christmasBall2, tree1, tree2);
         world.getChildren().add(objectGroup);
